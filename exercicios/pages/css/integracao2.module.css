@@ -1,0 +1,15 @@
+#integracao2 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.vermelho {
+  color: tomato;
+}
+
+.azul {
+  color: rgb(43, 98, 226) ;
+}

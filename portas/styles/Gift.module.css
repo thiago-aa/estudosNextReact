@@ -1,0 +1,32 @@
+.gift {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cover {
+  background-color: #938;
+  width: 100px;
+  height: 25px;
+}
+
+.box {
+  box-shadow: inset 0px 1px #551144E6;
+  background-color: #615;
+  width: 90px;
+  height: 60px;
+}
+
+.ribbon1 {
+  position: absolute;
+  background-color: #ddf;
+  height: 85px;
+  width: 15px;
+}
+.ribbon2 {
+  position: absolute;
+  background-color: #ddf;
+  height: 15px;
+  width: 90px;
+  margin-top: 40px;
+}

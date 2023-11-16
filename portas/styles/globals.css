@@ -1,0 +1,14 @@
+body {
+  background-color: #444;
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --door-area-height: 310px;
+  --door-area-width: 200px;
+}

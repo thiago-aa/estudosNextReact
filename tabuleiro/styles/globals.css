@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-Color: #444;
+  height: 100vh;
+}
+
+.blackSquare {
+  width: 5vw;
+  height: 5vw;
+  background-color: black;
+}
+
+.whiteSquare {
+  width: 5vw;
+  height: 5vw;
+  background-color: white;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  height: 40vw;
+  width: 40vw;
+}

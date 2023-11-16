@@ -1,0 +1,1 @@
+export default props => <div className={props.isEven ? 'whiteSquare' : 'blackSquare'}></div>

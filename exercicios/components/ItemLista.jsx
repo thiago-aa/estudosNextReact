@@ -1,0 +1,1 @@
+export default (props) => <li>{props.conteudo}</li>

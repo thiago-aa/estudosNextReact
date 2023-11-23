@@ -1,17 +1,28 @@
 import AuthInput from "../components/AuthInput";
 import { useState } from "react";
+import { WarningIcon } from "../components/icons";
+import useAuth from "../data/hook/useAuth";
 
 
 export default function Autenticacao() {
+
+  const {user, googleLogin} = useAuth()
+
   const [mode, setMode] = useState<'login' | 'cadastro'>('login');
+  const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  function showError(msg: string, seconds = 5) {
+    setError(msg);
+    setTimeout(() => setError(null), seconds * 1000)
+  }
+  
   function submit() {
     if(mode === 'login') {
-      console.log('Login');
+      showError('Ocorreu um erro no login')
     } else {
-      console.log('Cadastrar');
+      showError('Ocorreu um erro no cadastro')
     }
   }
 
@@ -30,6 +41,17 @@ export default function Autenticacao() {
         `}>
           {mode === 'login' ? 'Entre com a sua Conta' : 'Cadastre-se na plataforma'}
         </h1>
+        {error ? (
+          <div className={`
+            flex items-center
+            bg-red-400 text-white py-3 px-5 my-2
+            border border-red-700 rounded-lg
+          `}>
+            {WarningIcon()}
+            <span  className="ml-3 text-sm">{error}</span>
+          </div>
+        ): null}
+
         <AuthInput label="Email" type="email" value={email} getValue={setEmail} required/>
 
         <AuthInput label="Senha" type="password" value={password} getValue={setPassword} required/>
@@ -43,7 +65,7 @@ export default function Autenticacao() {
           {mode === 'login' ? 'Entrar' : 'Cadastrar'}
         </button>
         <hr className={`my-6 border-gray-300 w-full`}/>
-        <button className={`
+        <button onClick={googleLogin} className={`
           w-full bg-red-500 hover:bg-red-400
           text-white rounded-lg px-4 py-3
         `}>

@@ -1,3 +1,4 @@
+import Avatar from "../Avatar";
 import ToggleThemeButton from "../ToggleThemeButton";
 import Title from "./Title";
 import useAppData from "@/src/data/hook/useAppData";
@@ -14,9 +15,10 @@ export default function TopBar(props: TopBarProps) {
     <div className={`flex`}>
         <Title title={props.title} subTitle={props.subTitle} />
         <div className={`
-          flex flex-grow justify-end
+          flex flex-grow justify-end items-center
         `}>
           <ToggleThemeButton theme={theme} toggleTheme={toggleTheme}/>
+          <Avatar className="ml-2"/>
         </div>
     </div>
   )

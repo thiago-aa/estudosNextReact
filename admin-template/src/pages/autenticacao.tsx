@@ -1,4 +1,4 @@
-import AuthInput from "../components/AuthInput";
+import AuthInput from "../components/auth/AuthInput";
 import { useState } from "react";
 import { WarningIcon } from "../components/icons";
 import useAuth from "../data/hook/useAuth";
@@ -6,7 +6,7 @@ import useAuth from "../data/hook/useAuth";
 
 export default function Autenticacao() {
 
-  const {user, googleLogin} = useAuth()
+  const {googleLogin, login, register} = useAuth()
 
   const [mode, setMode] = useState<'login' | 'cadastro'>('login');
   const [error, setError] = useState<string | null>(null);
@@ -18,11 +18,17 @@ export default function Autenticacao() {
     setTimeout(() => setError(null), seconds * 1000)
   }
   
-  function submit() {
-    if(mode === 'login') {
-      showError('Ocorreu um erro no login')
-    } else {
-      showError('Ocorreu um erro no cadastro')
+  async function submit() {
+    if(login && register) {
+      try{
+        if(mode === 'login') {
+         await login(email, password);
+        } else {
+         await register(email, password);
+        }  
+      } catch(e) {
+        showError('Login não encontrado');
+      }
     }
   }
 

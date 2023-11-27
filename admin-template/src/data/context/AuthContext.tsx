@@ -6,6 +6,9 @@ import Cookies from 'js-cookie';
 
 interface AuthContextProps {
   user?: User | null;
+  loading?: boolean;
+  login?: (email: string, password: string) => Promise<void>;
+  register?: (email: string, password: string) => Promise<void>;
   googleLogin?: () => Promise<void>;
   logout?: () => Promise<void>;
 }
@@ -57,7 +60,27 @@ export function AuthProvider(props: any) {
         new firebase.auth.GoogleAuthProvider()
       )
   
-      configSection(resp.user);
+      await configSection(resp.user);
+      route.push('/');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function login(email: string, password: string) {
+    try {
+      const resp = await firebase.auth().signInWithEmailAndPassword(email, password);
+      await configSection(resp.user);
+      route.push('/');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function register(email: string, password: string) {
+    try {
+      const resp = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      await configSection(resp.user);
       route.push('/');
     } finally {
       setLoading(false);
@@ -71,7 +94,6 @@ export function AuthProvider(props: any) {
       await configSection(null);
     } finally {
       setLoading(false);
-      route.push('/autenticacao');
     }
   }
 
@@ -79,6 +101,8 @@ export function AuthProvider(props: any) {
     if(Cookies.get('admin-template-auth')) {
       const cancel = firebase.auth().onIdTokenChanged(configSection);
       return () => cancel();
+    } else {
+      setLoading(false);
     }
   },[])
 
@@ -86,7 +110,10 @@ export function AuthProvider(props: any) {
     <AuthContext.Provider value={{
       user,
       googleLogin,
-      logout
+      login,
+      logout,
+      register,
+      loading,
     }}>
       {props.children}
     </AuthContext.Provider>

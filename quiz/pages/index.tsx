@@ -12,7 +12,7 @@ export default function Home() {
   const [rightAnswersCounter, setRightAnswersCounter] = useState<number>(0);
   const [start, setStart] = useState<boolean>(false);
 
-  const BASE_URL = 'http://localhost:3000/api';
+  const BASE_URL = 'https://quiz-five-gray.vercel.app/api';
 
   async function loadQuestionsIDs() {
     const resp = await fetch(`${BASE_URL}/quiz`);

@@ -40,6 +40,11 @@
  font-size: 1.3rem;
  font-weight: 700;
  padding: 15px;
+ cursor: pointer;
+}
+
+.front:hover {
+  font-size: 1.4rem;
 }
 
 .verse > div {
@@ -63,8 +68,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   border-radius: 20px;
   margin-right: 10px;
   font-size: 1.3rem;
@@ -77,5 +82,5 @@
 }
 
 .right .value, .wrong .value {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }

@@ -2,12 +2,15 @@ import QuizQuestions from '../components/QuizQuestions'
 import QuestionModel from '../model/question'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
+import Button from '../components/Button';
+import { StartPage } from '../components/StartPage';
 
 export default function Home() {
   const router = useRouter();
   const [question, setQuestion] = useState<any>();
   const [questionsIDs, setQuestionsIDs] = useState<number[]>([]);
   const [rightAnswersCounter, setRightAnswersCounter] = useState<number>(0);
+  const [start, setStart] = useState<boolean>(false);
 
   const BASE_URL = 'http://localhost:3000/api';
 
@@ -36,7 +39,6 @@ export default function Home() {
     setQuestion(answer);
     const gotItRight = answer.right;
     setRightAnswersCounter(rightAnswersCounter + (gotItRight ? 1 : 0));
-    console.log(rightAnswersCounter + (gotItRight ? 1 : 0));
   }
 
   function getNextQuestionID() {
@@ -45,7 +47,6 @@ export default function Home() {
   }
   
   function nextStep() {
-    console.log("chamou nextStep")
     const nextID = getNextQuestionID();
     return nextID ? nextQuestion(nextID) : finish()
   }
@@ -64,7 +65,9 @@ export default function Home() {
     });
   }
 
-  return question ? (
+  return !start ? (  
+    <StartPage start={setStart}/>
+  ) : question ? (
       <QuizQuestions 
         question={question}
         lastQuestion={getNextQuestionID() === undefined}

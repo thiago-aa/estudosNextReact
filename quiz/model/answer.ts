@@ -2,11 +2,13 @@ export default class AnswerModel {
   #value: string;
   #right: boolean;
   #revealed: boolean;
+  #timesUp: boolean;
 
-  constructor(value: string, right: boolean, revealed = false) {
+  constructor(value: string, right: boolean, revealed = false, timesUp = false) {
     this.#value = value;
     this.#right = right;
     this.#revealed = revealed;
+    this.#timesUp = timesUp
   }
 
   static generateRightAnswer(value: string) {
@@ -29,8 +31,16 @@ export default class AnswerModel {
     return this.#revealed;
   }
 
-  reveal() {
+  get timesUp() {
+    return this.#timesUp;
+  }
+
+  reveal(answered: boolean) {
+  if( !answered) {
+    return new AnswerModel(this.#value, true, true, true);
+  } else {
     return new AnswerModel(this.#value, this.#right, true);
+  }
   }
 
   static convertObjToModel(obj: AnswerModel) : AnswerModel {

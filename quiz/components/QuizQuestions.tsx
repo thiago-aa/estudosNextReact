@@ -11,10 +11,13 @@ interface QuizQuestionProps {
 }
 
 export default function QuizQuestions(props: QuizQuestionProps) {
-  function onResponse(index: number) {
+  function onResponse(index: number | null) {
       if(props.question.notAnswered) {
-        console.log("answer with no QuizQuestions: ", props.question.answerWith(index))
-        props.answeredQuestion(props.question.answerWith(index));
+        if(index !== null) {
+          props.answeredQuestion(props.question.answerWith(index));
+        } else {
+          props.answeredQuestion(props.question.answerWith(null));
+        }
       }
   }
 
@@ -23,8 +26,8 @@ export default function QuizQuestions(props: QuizQuestionProps) {
       {props.question ? 
         <Question 
           value={props.question} 
-          timesUp={props.nextStep}
-          timeToAnswer={6}
+          timesUp={onResponse}
+          timeToAnswer={4}
           onResponse={onResponse}
         />
         : false

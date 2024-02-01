@@ -9,8 +9,6 @@ interface StatsProps {
 
 export default function Stats(props: StatsProps) {
   const {label, value} = props;
-  console.log('label', label);
-  console.log('value', value);
   return (
     <div className={styles.stats}>
       <div className={styles.value} style={{

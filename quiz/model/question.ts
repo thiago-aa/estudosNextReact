@@ -47,15 +47,25 @@ export default class QuestionModel {
     return new QuestionModel(this.#id, this.#statement, answersShuffled, this.#right);
   }
 
-  answerWith(index: number): QuestionModel {
-    const gotItRight = this.#answers[index]?.right;
-    const newAnswers = this.#answers.map((ans, i) => {
-      const selectedAnswer = index === i;
-      const mustReveal = selectedAnswer || ans.right;
-      return mustReveal ? ans.reveal() : ans;
-    })
-    const newQuestion = new QuestionModel(this.id, this.statement, newAnswers, gotItRight);
-    return newQuestion;
+  answerWith(index: number | null): QuestionModel {
+    if(index === null) {
+      const gotItRight = false;
+      const newAnswers = this.#answers.map((ans) => {
+        const mustReveal = ans.right;
+        return mustReveal ? ans.reveal(false) : ans;
+      })
+      const newQuestion = new QuestionModel(this.id, this.statement, newAnswers, gotItRight);
+      return newQuestion;
+    } else {
+      const gotItRight = this.#answers[index]?.right;
+      const newAnswers = this.#answers.map((ans, i) => {
+        const selectedAnswer = index === i;
+        const mustReveal = selectedAnswer || ans.right;
+        return mustReveal ? ans.reveal(true) : ans;
+      })
+      const newQuestion = new QuestionModel(this.id, this.statement, newAnswers, gotItRight);
+      return newQuestion;
+    }
   }
 
   static generateModelFromObj(obj: QuestionModel): QuestionModel {

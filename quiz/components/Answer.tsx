@@ -25,11 +25,17 @@ export default function Answer(props: AnswerProps) {
           </div>
         </div>
         <div className={styles.verse}>
-            {answer.right ? (
-              <div className={styles.right}>
-                <div>A resposta certa é...</div>
+            {
+              answer.right && answer.timesUp ? (
+              <div className={styles.wrong}>
+                <div>Tempo esgotado, a resposta certa é...</div>
                 <div className={styles.value}>{answer.value}</div>
               </div>
+            ) : answer.right ? (
+              <div className={styles.right}>
+              <div>A resposta certa é...</div>
+              <div className={styles.value}>{answer.value}</div>
+            </div>
             ) : (
               <div className={styles.wrong}>
                 <div>A resposta informada está errada...</div>

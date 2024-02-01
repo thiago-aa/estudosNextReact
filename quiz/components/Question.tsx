@@ -7,7 +7,7 @@ import Timer from './MeuTimer';
 interface QuestionProps {
   value: QuestionModel;
   onResponse: (index: number) => void;
-  timesUp: () => void;
+  timesUp: (index: null) => void;
   timeToAnswer?: number;
 }
 
@@ -35,7 +35,7 @@ export default function Question(props: QuestionProps) {
   return (
     <div className={styles.question}>
       <Statement text={question.statement}/>
-      <Timer duration={ props.timeToAnswer ?? 10} timesUp={props.timesUp} key={question.id}/>
+      <Timer duration={ props.timeToAnswer ?? 10} timesUp={() => props.timesUp(null)} key={question.id}/>
       {renderAnswers()}
     </div>
   )
